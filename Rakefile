@@ -47,9 +47,18 @@ end
 desc "Remove calculator.js"
 task :clean do
   sh "rm -f public/calculator.js"
+  sh "rm -f calculator*.tab.jison"
+  sh "rm -f calculator*.output"
+  sh "rm -f calculator*.vcg"
+  sh "rm -f calculator*.c"
 end
 
 desc "Open browser in GitHub repo"
 task :github do
   sh "open https://github.com/crguezl/ull-etsii-grado-pl-jisoncalc"
+end
+
+desc "DFA table using bison -v"
+task :table do
+  sh "bison -v public/calculator.jison"
 end

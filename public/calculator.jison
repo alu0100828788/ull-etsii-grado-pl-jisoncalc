@@ -8,6 +8,7 @@ function fact (n) {
 }
 %}
 
+%token NUMBER ID E PI EOF
 /* operator associations and precedence */
 
 %right '='

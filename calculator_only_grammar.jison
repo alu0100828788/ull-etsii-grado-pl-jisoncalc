@@ -1,13 +1,14 @@
 /* description: Parses end executes mathematical expressions. */
 
+%token NUMBER ID E PI EOF
 /* operator associations and precedence */
 %right '='
 %left '+' '-'
 %left '*' '/'
 %left '^'
-%left '!'
 %right '%'
 %left UMINUS
+%left '!'
 
 %start prog
 
@@ -28,8 +29,6 @@ s
 
 e
     : ID '=' e
-    | PI '=' e 
-    | E '=' e 
     | e '+' e
     | e '-' e
     | e '*' e
