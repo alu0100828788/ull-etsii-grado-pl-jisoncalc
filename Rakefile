@@ -11,6 +11,7 @@ end
 desc "Use the filled client_secrets"
 task :use_keys do
   sh "cp config/config_filled.yml config/config.yml"
+  sh "cp config/config_filledF.yml config/configF.yml"
 end
 
 desc "Go to console.developers.google"
@@ -24,11 +25,11 @@ task :ci, [ :message ] => :keep_secrets do |t, args|
   sh "git ci -am '#{message}'"
 end
 
-task :jison => %w{public/calculator.js} 
+task :jison => %w{public/pl0.js} 
 
-desc "Compile the grammar public/calculator.jison"
-file "public/calculator.js" => %w{public/calculator.jison} do
-  sh "jison public/calculator.jison public/calculator.l -o public/calculator.js"
+desc "Compile the grammar public/pl0.jison"
+file "public/pl0.js" => %w{public/pl0.jison} do
+  sh "jison public/pl0.jison public/pl0.l -o public/pl0.js"
 end
 
 desc "Compile the sass public/styles.scss"
@@ -44,13 +45,13 @@ task :tests do
   sh " open -a safari test/test.html"
 end
 
-desc "Remove calculator.js"
+desc "Remove pl0.js"
 task :clean do
-  sh "rm -f public/calculator.js"
-  sh "rm -f calculator*.tab.jison"
-  sh "rm -f calculator*.output"
-  sh "rm -f calculator*.vcg"
-  sh "rm -f calculator*.c"
+  sh "rm -f public/pl0.js"
+  sh "rm -f pl0*.tab.jison"
+  sh "rm -f pl0*.output"
+  sh "rm -f pl0*.vcg"
+  sh "rm -f pl0*.c"
 end
 
 desc "Open browser in GitHub repo"
@@ -60,5 +61,5 @@ end
 
 desc "DFA table using bison -v"
 task :table do
-  sh "bison -v public/calculator.jison"
+  sh "bison -v public/pl0.jison"
 end
