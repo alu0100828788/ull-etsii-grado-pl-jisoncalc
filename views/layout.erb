@@ -2,29 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>jison</title>
-    <link rel="icon" type="image/jpg" href="favicon.jpg" />
-    <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" charset="utf-8" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Práctica 08</title>
+    <link rel="icon" type="image/jpg" href="favicon.png" />
+   <link href="/css/iconFont.min.css" rel="stylesheet">
+  
+    
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui-1.9.2.min.js"></script>
+  
+    <script src="/js/metro.min.js"></script>
+  
+    <script src="/lib/codemirror.js"></script>
+    <script src="/mode/pl0/pl0.js"></script>
+  
+  <link rel="stylesheet" href="/lib/codemirror.css">
+  <link rel="stylesheet" href="/css/metro-bootstrap.css">
+  
   </head>
-  <body>
-    <nav>
-      <ul>
-        <li> <a href="/grammar"  title="Grammar" <%=current?("/grammar")%>>Grammar</a> </li>
-        <li> <a href="/"  title="Home" <%=current?("/")%>>Home</a> </li>
-        <li> <a href="/auth/google_oauth2"  title="Google" <%=current?("/auth/google_oauth2")%>>Sign in with Google</a> </li>
-        <li> <a href="http://campusvirtual.ull.es/1314/course/view.php?id=1104"  title="PL-UDV">PL-UDV</a> </li>
-        <li> <a href="https://github.com/crguezl/ull-etsii-grado-pl-jisoncalc"  title="Repo">Repo</a> </li>
-        <li> <a href="http://en.wikipedia.org/wiki/Recursive_descent_parser#Example_parser"   title="Wikipedia">PL0</a> </li>
-        <li> <a href="http://zaach.github.io/jison/"  title="Jison">Jison</a> </li>
-        <li> <a href="http://intridea.github.io/omniauth/"  title="Omniauth">Intridea Omniauth</a> </li>
-        <li> <a href="https://console.developers.google.com/project"  title="Google Developers Console">Google Developers Console</a> </li>
-        <li> <a href="http://crguezl.github.io/pl-html/"  title="PLGH">PL-GH</a> </li>
-        <li> <a href="https://github.com/SFEley/sinatra-flash"  title="sinatra-flash">sinatra-flash</a> </li>
-        <li> <a href="https://plus.google.com/u/0/+CasianoRodriguezLeon/" title="crguezl">crguezl</a> </li>
-      </ul>
+     <body class="metro">
+    <header>
+      <nav class="navigation-bar">
+        <nav class="navigation-bar-content">
+          <a class="element brand" href="/"  title="Home">Home</a>
+          <a class="element brand" href="/grammar"  title="Grammar">Gramática</a>
+          <a class="element brand" href="/test" title="Pruebas">Pruebas</a>
+          <span class="element-divider"></span>
+          <a class="element brand" 
+  href="https://github.com/alu0100828788/pl-prct08" title="Repo">Repositorio GitHub <span class="icon-github-2"></span></a>
+
+          <!-- Si el usuario está autenticado, usar su nombre e imagen para indicarlo -->
+          <% if session[:auth] %>
+            <div class="element place-right bg-red">
+              <a class="fg-white" href="/logout"><span class="icon-cancel-2"></span> Salir </a>
+            </div>
+            <span class="element-divider"></span>
+            <button class="element image-button image-left place-right">
+              <a href="<%= session[:url] %>" target="_blank"><%= session[:name] %></a>
+              <img src="<%= session[:image] %>">  
+            </button>
+          <!-- Si no, poner el menú de autenticación -->
+          <% else %>
+            <div class="element place-right bg-green">
+              <a class="dropdown-toggle" href="#"><span class="icon-checkmark"></span> Iniciar sesión </a>
+              <ul class="dropdown-menu  place-
+right" data-role="dropdown">
+                <li><a href="/auth/google_oauth2"  title="Google">Google <span class="icon-google-plus"></a> </li>
+                <li><a href="/auth/facebook" title="Facebook">Facebook <span class="icon-facebook"></span></a> </li>
+              </ul> 
+            </div>
+          <% end %>
+      </nav>
     </nav>
+  </header>
     <%= yield %>
   </body>
 </html>
 
+
+
+
+
+
+  
