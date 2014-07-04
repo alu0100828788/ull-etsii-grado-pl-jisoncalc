@@ -1,46 +1,79 @@
-<h1>Calculadora usando Jison</h1>
-<div id="content">
-  <p class="loadfile">
-    <input type="file" id="examples" />
-  </p>
-  <p>
-  <nav>
-  <ul>
-    <% programs.sort.each do |p| %>
-      <li><a href="<%= p.name %>" <%=current?('/'+p.name)%>><%= p.name %></a></li>
-    <% end %>
-  </ul>
-  </nav>
-  <table>
-    <tr>
-      <td>
-        <form action="/save" method="post">
-          <textarea id="input" name="input" 
-                    autofocus cols = "40" rows = "4">
+<div class="grid">
+  <div class="row">
+    <div class="span10 offset1"> <h1>Analizador sintáctico de PL/0</h1></div>
+  </div>
+  
+  <div class="row">
+    <!--<div class="span10 offset1"> <p class="loadfile"> <input type="file" id="examples" /> </p> </div>  -->
+    <div class="span7 offset1">
+      Cargar fichero <strong>PL/0</strong> <div class="input-control file"> <input type="file" id="examples" /> <button class="btn-file"></button> </div>
+    </div> 
+  </div>
+  
+  <div class="row">
+    <div class="span10 offset1">
+      <div class="button-set">
+        <% programs.sort.each do |p, index| %>
+        <button class="<%=current?(user + p.name) %>"><a href="<%= user %><%= p.name %>" > <%= p.name %> </a></button>
+        <% end %>
+      </div>
+    </div> 
+  </div>
+  
+  <form action="/save" method="post">
+    <div class="row">
+      <div class="span10 offset1"> 
+          <textarea id="input" name="input"  autofocus cols = "40" rows = "4">
 <%= source %>
           </textarea>
-          <br/>
-          <label for="saveas">Save as</label>
-          <input id="saveas" type="text" name="fname" 
-                 title="Un identificador (que no sea la palabra 'test')"
-                 pattern="^(?!test$)\w+$"
-          />
-        </form>
-      </td>
-      <td><button id="parse" type="button">parse</button></td>
-    </tr>
-  </table>
-  </p>
-  <p>
-    <div id="flash"><%= flash[:notice] if flash[:notice]%></div>
-  </p>
-  <div class="output"><!-- Output goes here! --> 
-<pre>
-<span id="output">
-</span>
-</pre>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2 offset1"> 
+        <button id="parse" type="button" class="success">Parsear entrada</button>
+      </div> 
+    
+      <div class="span2 offset3"> 
+        Guardar fichero como
+      </div>
+      
+      <div class="span2"> 
+        <input id="saveas" type="text" name="fname" title="Un identificador (que no sea la palabra 'test')" pattern="^(?!test$)\w+$" />
+      </div>
+    </div>
+  </form>
+  
+    <div class="row">
+      <div class="span5 offset6"> 
+        <div id="flash"><%= flash[:notice] if flash[:notice]%></div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="span10 offset1">
+      <div class="panel">
+        <div class="panel-header bg-lightBlue fg-white">
+          Árbol AST generado
+        </div>
+      <div class="panel-content">
+        <pre><span id="output">&lt;Vacío&gt;</span></pre>
+      </div>
+    </div>
+    </div>
   </div>
 </div>
 
-<script type="text/javascript" src="calculator.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script>
+    // Generar un editor CodeMirror a partir del textarea INPUT (se borra y se reemplaza).
+    var editor = CodeMirror.fromTextArea(document.getElementById("input"), {
+      lineNumbers: true,
+      viewportMargin: Infinity
+    });
+    
+    // Desactivar el "flash"
+    $("#flash").delay(5000).fadeOut(1500);
+</script>
+
+<script type="text/javascript" src="/pl0.js"></script>
+<script type="text/javascript" src="/main.js"></script>
